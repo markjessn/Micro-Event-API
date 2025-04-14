@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  app_inventory:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile.inventory
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgres://username:password@db:5432/microservice_db
+    volumes:
+      - ./inventory-service:/usr/src/app
+      - ./event-broker:/usr/src/app/event-broker
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  app_bidding:
+    build:
+      context: ./bidding-service
+      dockerfile: Dockerfile.bidding
+    ports:
+      - "3002:3001"
+    environment:
+      DATABASE_URL: postgres://username:password@db:5432/microservice_db
+    volumes:
+      - ./bidding-service:/usr/src/app
+      - ./event-broker:/usr/src/app/event-broker
+    depends_on:
+      - db
+    networks: 
+      - app-network
+
+  app_recommendation:
+    build:
+      context: ./recommendation-service
+      dockerfile: Dockerfile.recommendation
+    ports:
+      - "3003:3001"
+    environment:
+      DATABASE_URL: postgres://username:password@db:5432/microservice_db
+    volumes:
+      - ./recommendation-service:/usr/src/app
+      - ./event-broker:/usr/src/app/event-broker
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: microservice_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:

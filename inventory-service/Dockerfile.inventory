@@ -1,0 +1,18 @@
+FROM node:18
+
+# Set working directory
+WORKDIR /usr/src/app/inventory
+
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the app
+COPY . .
+
+# Install dev tools (like nodemon) globally if needed
+RUN npm install -g nodemon
+
+EXPOSE 3001
+
+CMD ["npm", "run", "dev"]

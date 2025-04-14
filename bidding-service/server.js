@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
-const eventBus = require('../event-broker');
+const eventBus = require('./event-broker');
 
 const app = express();
 app.use(bodyParser.json());

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./db');
-const eventBus = require('../event-broker');
+const eventBus = require('./event-broker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,14 +11,13 @@ eventBus.on('bid.created', async (bid) => {
   const { inventory_id, amount } = bid;
 
   try {
-    // Get all bids for this inventory
     const pastBids = await db.query(
       'SELECT amount FROM bids WHERE inventory_id = $1',
       [inventory_id]
     );
 
     const amounts = pastBids.rows.map(row => row.amount);
-    amounts.push(amount); // include current one
+    amounts.push(amount); 
 
     // Calculate simple recommended bid = avg + 10%
     const avg = amounts.reduce((a, b) => a + b, 0) / amounts.length;

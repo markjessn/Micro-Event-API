@@ -60,30 +60,30 @@ npm install
 3.Navigate to the Query Tool and run the following SQL queries to create the necessary tables for each service.
 
 ``` bash
--- For Inventory Service
-CREATE TABLE inventory (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  quantity INTEGER NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+  -- For Inventory Service
+  CREATE TABLE inventory (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    quantity INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
--- For Bidding Service
-CREATE TABLE bids (
-  id SERIAL PRIMARY KEY,
-  inventory_id INTEGER NOT NULL,
-  bidder TEXT NOT NULL,
-  amount INTEGER NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+  -- For Bidding Service
+  CREATE TABLE bids (
+    id SERIAL PRIMARY KEY,
+    inventory_id INTEGER NOT NULL,
+    bidder TEXT NOT NULL,
+    amount INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
--- For Recommendation Service
-CREATE TABLE recommendations (
-  id SERIAL PRIMARY KEY,
-  inventory_id INTEGER NOT NULL,
-  recommended_amount INTEGER NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+  -- For Recommendation Service
+  CREATE TABLE recommendations (
+    id SERIAL PRIMARY KEY,
+    inventory_id INTEGER NOT NULL,
+    recommended_amount INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 ```
 4.After running the queries, the necessary tables will be created in your microservices_db database.
 
@@ -135,14 +135,15 @@ Alternatively, you can set up the database using PostgreSQL's command line inter
 4.Configure Service Databases
   In each service's db.js (for example, in inventory-service/db.js, bidding-service/db.js, and recommendation-service/db.js), ensure the PostgreSQL connection details are set correctly:
   ``` bash
-  const pool = new Pool({
-    user: 'your_user',
-    host: 'localhost',
-    database: 'microservices_db',
-    password: 'your_password',
-    port: 5432,
+    const pool = new Pool({
+    user: process.env.PGUSER || 'postgres',
+    host: process.env.PGHOST || 'localhost',
+    database: process.env.PGDATABASE || 'microservices_db',
+    password: process.env.PGPASSWORD || 'your_password',
+    port: process.env.PGPORT || 5432,
   });
-```
+
+  ```
 **5. Start Services**
 
 **Now, start each service on different ports:**

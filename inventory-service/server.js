@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const eventBus = require('../event-broker');
+const eventBus = require('./event-broker');
 const db = require('./db');
 
 const app = express();
