@@ -44,6 +44,6 @@ app.get('/inventory', async (req, res) => {
 });
 
 const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`✅ Inventory Service with DB running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Bidding service running on port ${PORT}`);
 });

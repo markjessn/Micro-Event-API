@@ -44,6 +44,6 @@ app.post('/bids', async (req, res) => {
 });
 
 const PORT = 3002;
-app.listen(PORT, () => {
-  console.log(`🎯 Bidding Service running on port ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Bidding service running on port ${PORT}`);
 });
