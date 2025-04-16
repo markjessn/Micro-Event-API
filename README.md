@@ -185,6 +185,26 @@ GET http://localhost:3003/recommendation/1
 ```
 
 
+## 🛠️ How to Use Docker
+
+### 1. Create `.env` file
+
+Inside the `database/` folder, create a `.env` file with:
+
+```env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=yourpassword
+POSTGRES_DB=eventdb
+```
+
+
+### 2. Start the Database
+
+  From inside the database/ directory, run:
+
+``` bash 
+  docker-compose up -d
+```
 
 
 
