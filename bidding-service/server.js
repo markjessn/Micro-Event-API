@@ -33,7 +33,6 @@ app.post('/bids', async (req, res) => {
 
     const newBid = result.rows[0];
 
-    // Emit bid.created event
     eventBus.emit('bid.created', newBid);
 
     res.status(201).json(newBid);

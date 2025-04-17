@@ -206,5 +206,35 @@ POSTGRES_DB=eventdb
   docker-compose up -d
 ```
 
+### 🧪 Testing the System
+  You can interact with the services using Postman or cURL, but if you prefer running automated tests with test-mock.js, follow the steps below to test each service.
 
+### Run the Tests Using test-mock.js
+  
+  1. Ensure all services are running: Before running the tests, make sure the services are up and running on their respective ports (3001, 3002, 3003).
 
+  2. Run the Test Script for Each Service:
+    **Open a terminal for each service and run nodemon test-mock.js to start the tests:**
+
+    - Inventory Service. Navigate to the inventory-service folder and run:
+    
+      ``` bash 
+        cd inventory-service
+        nodemon test-mock.js
+      ```
+    - Bidding Service: Navigate to the bidding-service folder and run:
+
+      ``` bash 
+        cd bidding-service
+        nodemon test-mock.js
+      ```
+    - Recommendation Service: Navigate to the recommendation-service folder and run:
+
+      ``` bash 
+        cd recommendation-service
+        nodemon test-mock.js
+      ```
+  3. What test-mock.js Does:
+    - Create Inventory Item (POST /inventory)
+    - Submit a Bid(POST /inventory)
+    - Fetch Latest Bid recommendation(GET /recommendation/:inventoryId)
